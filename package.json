@@ -8,5 +8,8 @@
     "jira-client": "^8.2.2",
     "lodash": "^4.17.21",
     "simple-git": "^3.24.0"
+  },
+  "devDependencies": {
+    "prettier": "3.2.5"
   }
 }
