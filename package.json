@@ -1,0 +1,12 @@
+{
+  "name": "open-platform-deployment-script",
+  "version": "1.0.0",
+  "main": "deployment.js",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "jira-client": "^8.2.2",
+    "lodash": "^4.17.21",
+    "simple-git": "^3.24.0"
+  }
+}
