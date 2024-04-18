@@ -24,6 +24,9 @@ const WHITELISTED_REPOS = [
   "developer-event",
   "mini-app-store",
   "sub9-api",
+  "metafield-api",
+  "multipass-api",
+  "merchant-event-serializer",
   // Add more repositories if needed
 ];
 
@@ -32,7 +35,7 @@ const REPO_BASE_PATH = `${process.env.HOME}/Documents/`; //TODO: replace your ow
 
 // Bitbucket API info and credentials
 const BITBUCKET_WORKSPACE = "starlinglabs";
-const BITBUCKET_USERNAME = "USERNAME"; //TODO: get your username from https://bitbucket.org/account/settings/app-passwords/
+const BITBUCKET_USERNAME = "USERNAME"; //TODO: get your username from https://bitbucket.org/account/settings/
 const BITBUCKET_PASSWORD = "PASSWORD"; //TODO: get your password from https://bitbucket.org/account/settings/app-passwords/
 const BITBUCKET_API_URL = `https://api.bitbucket.org/2.0/repositories/${BITBUCKET_WORKSPACE}/REPO_SLUG/`;
 
