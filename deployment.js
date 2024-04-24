@@ -28,6 +28,7 @@ const WHITELISTED_REPOS = [
   "metafield-api",
   "multipass-api",
   "merchant-event-serializer",
+  "storefront-api",
   // Add more repositories if needed
 ];
 
