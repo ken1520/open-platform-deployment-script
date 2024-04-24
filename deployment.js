@@ -1,4 +1,4 @@
-require('dotenv').config()
+require("dotenv").config();
 const axios = require("axios");
 const _ = require("lodash");
 const simpleGit = require("simple-git");
@@ -109,7 +109,9 @@ const getReposFromRelease = async (release) => {
     const issueKey = issue.key;
 
     const detail = await getPRsFromJira(issue.id);
-    const pullRequests = detail.detail[0].pullRequests;
+    const pullRequests = detail.detail[0].pullRequests.filter(
+      (p) => p.status != "DECLINED",
+    );
 
     repos.push(..._.uniq(pullRequests.map((p) => p.repositoryName)));
   }
@@ -131,7 +133,9 @@ const displayReleaseDetails = async () => {
     const issueKey = issue.key;
 
     const detail = await getPRsFromJira(issue.id);
-    const pullRequests = detail.detail[0].pullRequests;
+    const pullRequests = detail.detail[0].pullRequests.filter(
+      (p) => p.status != "DECLINED",
+    );
 
     table[issueKey] = {};
     table[issueKey]["Summary"] = issue.fields.summary;
