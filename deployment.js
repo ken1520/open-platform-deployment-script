@@ -1,3 +1,4 @@
+require('dotenv').config()
 const axios = require("axios");
 const _ = require("lodash");
 const simpleGit = require("simple-git");
@@ -35,8 +36,8 @@ const REPO_BASE_PATH = `${process.env.HOME}/Documents/`; //TODO: replace your ow
 
 // Bitbucket API info and credentials
 const BITBUCKET_WORKSPACE = "starlinglabs";
-const BITBUCKET_USERNAME = "USERNAME"; //TODO: get your username from https://bitbucket.org/account/settings/
-const BITBUCKET_PASSWORD = "PASSWORD"; //TODO: get your password from https://bitbucket.org/account/settings/app-passwords/
+const BITBUCKET_USERNAME = process.env.BITBUCKET_USERNAME;
+const BITBUCKET_PASSWORD = process.env.BITBUCKET_PASSWORD;
 const BITBUCKET_API_URL = `https://api.bitbucket.org/2.0/repositories/${BITBUCKET_WORKSPACE}/REPO_SLUG/`;
 
 // Bitbucket create release PR API request data
@@ -57,8 +58,8 @@ const BITBUCKET_API_CREATE_PR_REQUEST_DATA = {
 
 // Jira API credentials
 const JIRA_BASE_URL = "shopline.atlassian.net";
-const JIRA_USERNAME = "USERNAME"; //TODO: replace with your email address
-const JIRA_API_TOKEN = "TOKEN"; //TODO: generate your jira api token from https://id.atlassian.com/manage-profile/security/api-tokens
+const JIRA_USERNAME = process.env.JIRA_USERNAME;
+const JIRA_API_TOKEN = process.env.JIRA_API_TOKEN;
 
 // Create a new JiraClient instance
 const jira = new JiraClient({
