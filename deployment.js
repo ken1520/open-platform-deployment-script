@@ -35,6 +35,9 @@ const WHITELISTED_REPOS = [
 // Local directory of repositories
 const REPO_BASE_PATH = `${process.env.HOME}/Documents/`; //TODO: replace your own path
 
+// Slack Webhook info
+const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK;
+
 // Bitbucket API info and credentials
 const BITBUCKET_WORKSPACE = "starlinglabs";
 const BITBUCKET_USERNAME = process.env.BITBUCKET_USERNAME;
@@ -229,18 +232,32 @@ const createBitbucketPr = async (repo) => {
   res = await axios.post(apiUrl, BITBUCKET_API_CREATE_PR_REQUEST_DATA, {
     auth: { username: BITBUCKET_USERNAME, password: BITBUCKET_PASSWORD },
   });
+
+  return res.data;
 };
+
+// Call Slack Webhook to send a reminder message to channel
+const sendPrsReminder = async (prLinks) => {
+  const apiUrl = SLACK_WEBHOOK_URL;
+  res = await axios.post(
+    apiUrl,
+    { release_version: releaseVersion, pr_links: prLinks.join('\n') },
+  );
+}
 
 // Create release PRs for each repo in a relase
 const createReleasePRs = async () => {
   const jiraRes = await getJiraCardsFromRelease();
   let releaseRepos = await getReposFromRelease(jiraRes);
+  let prLinks = [];
 
   for (const repository of releaseRepos) {
     if (WHITELISTED_REPOS.includes(repository)) {
       console.log(`[-] Creating release PR for repository '${repository}'...`);
       try {
-        await createBitbucketPr(repository);
+        let { links } = await createBitbucketPr(repository);
+        prLinks.push(links.html.href);
+
         console.log(
           `[O] Successfully create release PR for repository '${repository}'`,
         );
@@ -257,6 +274,9 @@ const createReleasePRs = async () => {
     }
     console.log();
   }
+
+  // Send reminder to channel
+  await sendPrsReminder(prLinks);
 };
 
 /****************\
