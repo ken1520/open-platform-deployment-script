@@ -208,7 +208,7 @@ const createReleaseBranches = async () => {
         `[-] Creating release branch '${releaseBranchName}' in repository '${repository}'...`,
       );
       try {
-        // await checkoutBranch(repository, releaseBranchName);
+        await checkoutBranch(repository, releaseBranchName);
         console.log(
           `[O] Successfully created release branch for repository '${repository}'`,
         );
