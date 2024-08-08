@@ -197,13 +197,18 @@ const createReleaseBranches = async () => {
   const jiraRes = await getJiraCardsFromRelease();
   let releaseRepos = await getReposFromRelease(jiraRes);
 
-  for (const repository of releaseRepos) {
+  for (const repo of releaseRepos) {
+    // Extract repository name from the full path
+    // Always get the last element from the splited path
+    let repoFullPath = repo.split('/');
+    let repository = repoFullPath[repoFullPath.length - 1];
+
     if (WHITELISTED_REPOS.includes(repository)) {
       console.log(
         `[-] Creating release branch '${releaseBranchName}' in repository '${repository}'...`,
       );
       try {
-        await checkoutBranch(repository, releaseBranchName);
+        // await checkoutBranch(repository, releaseBranchName);
         console.log(
           `[O] Successfully created release branch for repository '${repository}'`,
         );
